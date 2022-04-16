@@ -5,10 +5,7 @@
     <img src="../assets/login.png" />
 
     <!--  QR code on the right-->
-    <div style="height: 300px; width: 800px">
-      <QRCode ></QRCode>
-      <div>{{this.$store.state.QRCodeText}}</div>
-    </div>
+    <QRCode></QRCode>
 
   </div>
 
@@ -16,7 +13,6 @@
 
 <script>
 
-import {userRequest} from "@/network/request";
 import QRCode from '@/components/QRCode'
 
 

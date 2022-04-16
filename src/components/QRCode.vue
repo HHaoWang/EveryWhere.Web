@@ -6,7 +6,6 @@
 
 <script>
 
-//import QRCode from 'qrcodejs2'
 import {userRequest} from "@/network/request";
 import QRCodeGenerator from "qrcode"
 
@@ -18,7 +17,6 @@ export default {
 
   data:function() {
     return {
-      QRCodeText: 0,
       QRCodeBase64: ""
     }
   },
@@ -31,11 +29,10 @@ export default {
       let that = this;
       userRequest({method: 'get', url: '/api/Login/QRCode'})
           .then((response) => {
-            this.QRCodeText = response.data.uuid;
-            console.log(response.data.uuid);
             return QRCodeGenerator.toDataURL(response.data.uuid);
           }).then(url => {
             console.log(url);
+            this.QRCodeBase64 = url
           })
           .catch(err => {
             console.error(err);
