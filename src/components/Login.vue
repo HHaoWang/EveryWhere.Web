@@ -31,7 +31,6 @@ export default {
     }
   },
   created() {
-    this.refresh()
   },
   methods:{
 
