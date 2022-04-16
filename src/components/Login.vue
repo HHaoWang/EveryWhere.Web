@@ -5,8 +5,11 @@
     <img src="../assets/login.png" />
 
     <!--  QR code on the right-->
-    <QRCode ></QRCode>
-    <div>{{this.$store.state.QRCodeText}}</div>
+    <div style="height: 300px; width: 800px">
+      <QRCode ></QRCode>
+      <div>{{this.$store.state.QRCodeText}}</div>
+    </div>
+
   </div>
 
 </template>

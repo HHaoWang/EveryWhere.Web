@@ -11,6 +11,7 @@ import {userRequest} from "@/network/request";
 export default {
   name: 'QRCode',
   mounted() {
+    this.CreateQRCode()
     this.refresh();
   },
 
@@ -21,32 +22,26 @@ export default {
     refresh:function (){
       window.setInterval(() => {
         setTimeout(()=>{
-          userRequest({method:'get',url:'/api/Login/QRCode'})
-              .then((response) => {
-                this.QRCodeText = response.data.uuid
-
-                let qrcode = new QRCode('qrcode', {
-                  width: 300,
-                  height: 300,
-                  text: this.QRCodeText,
-                  colorDark: "#000",
-                  colorLight: "#fff",
-                })
-                this.$store.commit('freshQRCodeText',{text : response.data.uuid})
-              })
+          document.getElementById("qrcode").innerHTML = ""
+          this.CreateQRCode()
         },0)
-        document.getElementById("qrcode").innerHTML = ""
+
       }, 3000)
     },
-    // qrcode() {
-    //   let qrcode = new QRCode('qrcode', {
-    //     width: 300,
-    //     height: 300,
-    //     text: this.QRCodeText,
-    //     colorDark: "#000",
-    //     colorLight: "#fff",
-    //   })
-    // },
+    CreateQRCode:function (){
+      userRequest({method:'get',url:'/api/Login/QRCode'})
+          .then((response) => {
+            this.QRCodeText = response.data.uuid
+            let qrcode = new QRCode('qrcode', {
+              width: 300,
+              height: 300,
+              text: this.QRCodeText,
+              colorDark: "#000",
+              colorLight: "#fff",
+            })
+            this.$store.commit('freshQRCodeText',{text : response.data.uuid})
+          })
+    }
   }
 }
 </script>
