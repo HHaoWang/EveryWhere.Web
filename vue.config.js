@@ -12,7 +12,7 @@ module.exports = {
         pathRewrite: {
           '^/api': '' // // 替换target中的请求地址，也就是说，在请求的时候，url用'/proxy'代替'http://ip.taobao.com'
         },
-        logLevel: 'debug'
+        //logLevel: 'debug'
       }
     }
   },

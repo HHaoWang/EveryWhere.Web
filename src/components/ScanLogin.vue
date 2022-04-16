@@ -58,7 +58,7 @@ export default {
       }
       this.intervalIdCheck = setInterval(() => {
         this.checkLoginSuccess();
-      }, 300);
+      }, 3000);
     },
     clearCheck() {
       clearInterval(this.intervalIdCheck); //
@@ -85,7 +85,7 @@ export default {
             data.data.platform = 'web'
             data.data.uuid = response.data.uuid
             console.log(data);
-            return QRCodeGenerator.toDataURL(data.toString(),opts);
+            return QRCodeGenerator.toDataURL(JSON.stringify(data),opts);
           }).then(url => {
             console.log(url);
             this.QRCodeBase64 = url
@@ -99,7 +99,7 @@ export default {
       let that = this;
       userRequest({method: 'get', url: '/api/Login/QRCode/'+this.uuid+'/Valid'})
           .then((response) => {
-            console.log(response.statusCode);
+            console.log(response);
             if(response.statusCode === 200){
               that.$store.commit('setToken', response.data.token)
               router.replace('/merchants')
