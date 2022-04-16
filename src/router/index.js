@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import merchants from '../views/merchants.vue';
 import Login from "@/views/Login";
+import admin from "@/views/admin";
 
 Vue.use(VueRouter)
 
@@ -14,6 +15,10 @@ const routes = [
     path: '/merchants',
     name: 'merchants',
     component: merchants
+  },{
+    path: '/admin',
+    name: 'admin',
+    component: admin
   },
 
 ]

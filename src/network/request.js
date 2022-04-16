@@ -22,9 +22,9 @@ export function request(config) {
 
 export function userRequest(config) {
     axios.defaults.withCredentials=true;
-
     const query = axios.create({
-        baseURL
+        baseURL,
+
     });
 
     query.interceptors.response.use(res => {

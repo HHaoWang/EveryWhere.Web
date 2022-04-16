@@ -44,7 +44,7 @@ export default {
       }
       this.intervalIdQR = setInterval(() => {
         this.CreateQRCode();
-      }, 3000);
+      }, 15000);
     },
     clearQRCode() {
       clearInterval(this.intervalIdQR); //
@@ -77,7 +77,15 @@ export default {
               quality: 1,
               margin: 0,
             };
-            return QRCodeGenerator.toDataURL(response.data.uuid,opts);
+            // const str = '[{"operation":"login","data":["uuid":"","platform":"web"]}]'
+            const data = {
+              "operation": "login",
+              "data":{}
+            };
+            data.data.platform = 'web'
+            data.data.uuid = response.data.uuid
+            console.log(data);
+            return QRCodeGenerator.toDataURL(data.toString(),opts);
           }).then(url => {
             console.log(url);
             this.QRCodeBase64 = url
