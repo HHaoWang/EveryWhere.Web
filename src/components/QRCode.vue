@@ -12,19 +12,39 @@ import QRCodeGenerator from "qrcode"
 export default {
   name: 'QRCode',
   mounted() {
+    //先执行一次
     this.CreateQRCode();
+    //刷新二维码
+    this.refresh()
+  },
+  destroyed(){
+    // 在页面销毁后，清除计时器
+    this.clear();
   },
 
   data:function() {
     return {
-      QRCodeBase64: ""
+      QRCodeBase64: "",
+      intervalId:null
     }
   },
 
   methods: {
+    //定时器定时刷新
     refresh: function () {
-
+      if (this.intervalId != null) {
+        return;
+      }
+      this.intervalId = setInterval(() => {
+        this.CreateQRCode();
+      }, 2000);
     },
+    //清除计时器
+    clear() {
+      clearInterval(this.intervalId); //
+      this.intervalId = null; //设置为null
+    },
+    //uuid生成二维码的base64
     CreateQRCode: function () {
       let that = this;
       userRequest({method: 'get', url: '/api/Login/QRCode'})
