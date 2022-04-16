@@ -5,7 +5,10 @@
     <img src="../assets/login.png" />
 
     <!--  QR code on the right-->
-    <QRCode></QRCode>
+    <div style="width: 600px">
+      <QRCode></QRCode>
+    </div>
+
 
   </div>
 

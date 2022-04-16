@@ -1,6 +1,8 @@
 <template>
   <div>
-    <v-img :src="QRCodeBase64"></v-img>
+    <v-img :src="QRCodeBase64"
+     style="width:250px; height:250px" >
+    </v-img>
   </div>
 </template>
 
@@ -49,7 +51,13 @@ export default {
       let that = this;
       userRequest({method: 'get', url: '/api/Login/QRCode'})
           .then((response) => {
-            return QRCodeGenerator.toDataURL(response.data.uuid);
+            const opts = {
+              errorCorrectionLevel: 'H',
+              type: 'image/webp',  //Possible values are: image/png, image/jpeg, image/webp.
+              quality: 1,
+              margin: 0,
+            };
+            return QRCodeGenerator.toDataURL(response.data.uuid,opts);
           }).then(url => {
             console.log(url);
             this.QRCodeBase64 = url
