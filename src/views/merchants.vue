@@ -22,6 +22,7 @@
             class="mb-4"
             color="grey darken-1"
             size="64"
+
         ></v-avatar>
 
         <div>john@vuetifyjs.com</div>
@@ -34,6 +35,7 @@
             v-for="[icon, text] in links"
             :key="icon"
             link
+
         >
           <v-list-item-icon>
             <v-icon>{{ icon }}</v-icon>
@@ -47,48 +49,7 @@
     </v-navigation-drawer>
 
     <v-main>
-      <v-container
-          class="py-8 px-6"
-          fluid
-      >
-        <v-row>
-          <v-col
-              v-for="card in cards"
-              :key="card"
-              cols="12"
-          >
-            <v-card>
-              <v-subheader>{{ card }}</v-subheader>
 
-              <v-list two-line>
-                <template v-for="n in 6">
-                  <v-list-item
-
-                      :key="n"
-                  >
-                    <v-list-item-avatar color="grey darken-1">
-                    </v-list-item-avatar>
-
-                    <v-list-item-content>
-                      <v-list-item-title>Message {{ n }}</v-list-item-title>
-
-                      <v-list-item-subtitle>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil repellendus distinctio similique
-                      </v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-
-                  <v-divider
-                      v-if="n !== 6"
-                      :key="`divider-${n}`"
-                      inset
-                  ></v-divider>
-                </template>
-              </v-list>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
     </v-main>
   </v-app>
 </template>
@@ -96,11 +57,13 @@
 <script>
 
 import {userRequest} from "@/network/request";
-import router from "@/router";
 
 export default {
   name: 'merchants',
   components: {
+  },
+  created() {
+    this.ValidShopkeeper()
   },
   data: () => ({
     cards: ['Today', 'Yesterday'],
@@ -112,22 +75,23 @@ export default {
       ['mdi-alert-octagon', 'Spam'],
     ],
   }),
-  beforeCreate() {
-    let that = this;
-    const token = this.$store.state.token;
-    userRequest({method: 'get', url: '/api/Login/QRCode/'+this.uuid+'/Valid'},  { headers: {  Authorization: token  } })
-        .then((response) => {
-          console.log(response.statusCode);
-          if(response.statusCode === 200){
-            that.$store.commit('setToken', response.data.token)
-            router.replace('/merchants')
-          }else{
-            console.log(response.message);
-          }
-        })
-        .catch(err => {
+  methods:{
+    ValidShopkeeper : function(){
+      console.log("zhixinglema");
+      userRequest({
+        method: 'get',
+        url: '/api/Login/Valid/Shopkeeper',
+      }).then((response) => {
+        // if(response.statusCode === 200){
+        //
+        // }else{
+        //   console.log(response.message);
+        // }
+      }).catch(err => {
           console.error(err);
         })
-  }
+      console.log("zhixinglema");
+    }
+  },
 }
 </script>

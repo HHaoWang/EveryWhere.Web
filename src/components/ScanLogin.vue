@@ -8,7 +8,7 @@
 
 <script>
 
-import {userRequest} from "@/network/request";
+import {request, userRequest} from "@/network/request";
 import QRCodeGenerator from "qrcode"
 import router from "@/router";
 
@@ -68,7 +68,10 @@ export default {
     //uuid生成二维码的base64
     CreateQRCode: function () {
       let that = this;
-      userRequest({method: 'get', url: '/api/Login/QRCode'})
+      request({
+        method: 'get',
+        url: '/api/Login/QRCode'
+      })
           .then((response) => {
             that.uuid = response.data.uuid
             const opts = {
@@ -97,7 +100,7 @@ export default {
     //检查二维码是否被使用成功登录
     checkLoginSuccess:function (){
       let that = this;
-      userRequest({method: 'get', url: '/api/Login/QRCode/'+this.uuid+'/Valid'})
+      request({method: 'get', url: '/api/Login/QRCode/'+this.uuid+'/Valid'})
           .then((response) => {
             console.log(response);
             if(response.statusCode === 200){

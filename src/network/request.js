@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../../src/store/index'
 export let baseUrl = window.location.hostname //'118.190.97.125:8080'
 export let wsPort = 8080
 export let basePort = window.location.port
@@ -24,11 +25,10 @@ export function userRequest(config) {
     axios.defaults.withCredentials=true;
     const query = axios.create({
         baseURL,
-
     });
 
     query.interceptors.response.use(res => {
-        if (res.data.code === 401 || res.data.code === 20004) {
+        if (res.data != null) {
 
         }
         return res.data;
@@ -37,6 +37,7 @@ export function userRequest(config) {
 
     query.interceptors.request.use(config => {
 
+        config.headers.Authorization = store.state.token
         return config
     })
 
