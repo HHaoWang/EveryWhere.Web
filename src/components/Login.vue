@@ -5,8 +5,8 @@
     <img src="../assets/login.png" />
 
     <!--  QR code on the right-->
-
-
+    <QRCode ></QRCode>
+    <div>{{this.$store.state.QRCodeText}}</div>
   </div>
 
 </template>
@@ -14,32 +14,24 @@
 <script>
 
 import {userRequest} from "@/network/request";
+import QRCode from '@/components/QRCode'
+
 
 export default {
-  name: "HelloWorld",
+  name: "Login",
   components: {
-
+    QRCode
   },
   data() {
     return {
-      QRText: 'http://www.baidu.com',
+
     }
   },
   created() {
     this.refresh()
   },
   methods:{
-    refresh:function (){
-      window.setInterval(() => {
-        setTimeout(()=>{
-          userRequest({method:'get',url:'/api/Login/QRCode'})
-              .then((response) => {
-                data.QRText = response.data
-              })
-          console.log(this.$data.QRText)
-        },0)
-      }, 3000)
-    }
+
   }
 }
 </script>

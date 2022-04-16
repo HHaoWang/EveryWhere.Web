@@ -1,48 +1,52 @@
 <template>
   <div>
-    <div id="qrcode"></div> <!-- 创建一个div，并设置id为qrcode -->
+    <div id="qrcode"></div>
   </div>
 </template>
 
 <script>
-// 二维码
-import QRCode from 'qrcodejs2'  // 引入qrcode
+
+import QRCode from 'qrcodejs2'
+import {userRequest} from "@/network/request";
 export default {
   name: 'QRCode',
   mounted() {
-    this.qrcode();
+    this.refresh();
   },
-  props:{
-    width:{
-      type:Number,
-      default(){
-        return 132
-      }
-    },
-    height:{
-      type:Number,
-      default(){
-        return 132
-      }
-    },
-    // 二维码地址
-    url:{
-      type:String,
-      default(){
-        return 'https://www.baidu.com'
-      }
-    }
+
+  data:{
+    QRCodeText:0
   },
   methods: {
-    qrcode() {
-      let qrcode = new QRCode('qrcode', {
-        width: this.width,
-        height: this.height,
-        text: this.url,
-        colorDark: "#000",
-        colorLight: "#fff",
-      })
+    refresh:function (){
+      window.setInterval(() => {
+        setTimeout(()=>{
+          userRequest({method:'get',url:'/api/Login/QRCode'})
+              .then((response) => {
+                this.QRCodeText = response.data.uuid
+
+                let qrcode = new QRCode('qrcode', {
+                  width: 300,
+                  height: 300,
+                  text: this.QRCodeText,
+                  colorDark: "#000",
+                  colorLight: "#fff",
+                })
+                this.$store.commit('freshQRCodeText',{text : response.data.uuid})
+              })
+        },0)
+        document.getElementById("qrcode").innerHTML = ""
+      }, 3000)
     },
+    // qrcode() {
+    //   let qrcode = new QRCode('qrcode', {
+    //     width: 300,
+    //     height: 300,
+    //     text: this.QRCodeText,
+    //     colorDark: "#000",
+    //     colorLight: "#fff",
+    //   })
+    // },
   }
 }
 </script>
