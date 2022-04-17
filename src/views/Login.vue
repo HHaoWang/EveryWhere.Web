@@ -7,9 +7,6 @@
       <!--  QR code on the right-->
       <div style="width: 600px">
         <ScanLogin></ScanLogin>
-        <router-link to="/merchants" >
-          跳过登录
-        </router-link>
       </div>
     </div>
 </template>

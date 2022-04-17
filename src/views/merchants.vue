@@ -1,62 +1,26 @@
 <template>
-  <v-app id="inspire">
-    <v-system-bar app>
-      <v-spacer></v-spacer>
 
-      <v-icon>mdi-square</v-icon>
+  <div class="container">
+    <div v-if="$store.state.isShopkeeper === true && $store.state.hasShop === true">
+      23
+    </div>
+    <div v-else="$store.state.isShopkeeper === true && $store.state.hasShop === false" class="container">
+      <v-btn x-large color="success" dark v-on:click="openaShop">
+        开设店铺
+      </v-btn>
+      <div v-if="$store.state.isManager === true">
+        <v-btn x-large color="success" dark> 管理后台</v-btn>
+      </div>
+    </div>
+  </div>
 
-      <v-icon>mdi-circle</v-icon>
-
-      <v-icon>mdi-triangle</v-icon>
-    </v-system-bar>
-
-    <v-navigation-drawer
-        v-model="drawer"
-        app
-    >
-      <v-sheet
-          color="grey lighten-4"
-          class="pa-4"
-      >
-        <v-avatar
-            class="mb-4"
-            color="grey darken-1"
-            size="64"
-
-        ></v-avatar>
-
-        <div>john@vuetifyjs.com</div>
-      </v-sheet>
-
-      <v-divider></v-divider>
-
-      <v-list>
-        <v-list-item
-            v-for="[icon, text] in links"
-            :key="icon"
-            link
-
-        >
-          <v-list-item-icon>
-            <v-icon>{{ icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ text }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-main>
-
-    </v-main>
-  </v-app>
 </template>
 
 <script>
 
 import {userRequest} from "@/network/request";
+import store from '../../src/store/index'
+import router from "@/router";
 
 export default {
   name: 'merchants',
@@ -64,34 +28,66 @@ export default {
   },
   created() {
     this.ValidShopkeeper()
+    this.checkHasShop()
   },
-  data: () => ({
-    cards: ['Today', 'Yesterday'],
-    drawer: null,
-    links: [
-      ['mdi-inbox-arrow-down', 'Inbox'],
-      ['mdi-send', 'Send'],
-      ['mdi-delete', 'Trash'],
-      ['mdi-alert-octagon', 'Spam'],
-    ],
-  }),
+  data: {},
   methods:{
     ValidShopkeeper : function(){
-      console.log("zhixinglema");
       userRequest({
         method: 'get',
         url: '/api/Login/Valid/Shopkeeper',
       }).then((response) => {
-        // if(response.statusCode === 200){
-        //
-        // }else{
-        //   console.log(response.message);
-        // }
+        if(response.statusCode === 200){
+          store.state.isShopkeeper = true
+        }else{
+          console.log(response.message);
+          // store.state.isShopkeeper = false
+        }
       }).catch(err => {
           console.error(err);
+          router.replace('/')
         })
-      console.log("zhixinglema");
+    },
+    checkHasShop:function (){
+      userRequest({
+        method: 'get',
+        url: '/api/Shop/Shopkeeper',
+      }).then((response) => {
+        if(response.statusCode === 404 && response.data.shop === null){
+          store.state.hasShop = false
+        }else{
+          console.log(response.message);
+        }
+      }).catch(err => {
+        console.error(err);
+      })
+    },
+    checkManager:function (){
+      userRequest({
+        method: 'get',
+        url: '/api/Login/Valid/Manager',
+      }).then((response) => {
+        if(response.statusCode === 200){
+          store.state.isManager = true
+        }else{
+          console.log(response.message);
+
+        }
+      }).catch(err => {
+        console.error(err);
+      })
+    },
+    openaShop:function (){
+      router.replace('/openAShop')
     }
   },
 }
 </script>
+<style scoped>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:100vh;
+}
+</style>

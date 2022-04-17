@@ -5,12 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: ""
+    token: "",
+    isShopkeeper : false,
+    isManager : false,
+    hasShop : false,
+
   },
   mutations: {
     setToken(state,token){
       state.token = token
-    }
+    },
   },
   actions: {
   },

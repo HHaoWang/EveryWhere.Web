@@ -105,6 +105,7 @@ export default {
             console.log(response);
             if(response.statusCode === 200){
               that.$store.commit('setToken', response.data.token)
+              localStorage.setItem("token",response.data.token);
               router.replace('/merchants')
             }else{
               console.log(response.message);

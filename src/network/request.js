@@ -36,8 +36,7 @@ export function userRequest(config) {
     })
 
     query.interceptors.request.use(config => {
-
-        config.headers.Authorization = store.state.token
+        config.headers.Authorization = 'bearer ' + localStorage.getItem('token')
         return config
     })
 

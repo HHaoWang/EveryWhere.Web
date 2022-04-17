@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import merchants from '../views/merchants.vue';
 import Login from "@/views/Login";
 import admin from "@/views/admin";
+import openaShop from "@/views/openaShop";
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,10 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: admin
+  },{
+    path: '/openaShop',
+    name: 'openaShop',
+    component: openaShop
   },
 
 ]

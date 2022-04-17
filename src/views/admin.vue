@@ -3,8 +3,17 @@
 </template>
 
 <script>
+import {userRequest} from "@/network/request";
+import store from "@/store";
+
 export default {
-  name: "admin"
+  name: "admin",
+  created() {
+
+  },
+  methods:{
+
+  }
 }
 </script>
 
