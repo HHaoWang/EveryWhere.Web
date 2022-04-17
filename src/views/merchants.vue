@@ -79,7 +79,7 @@ export default {
       })
     },
     openShop:function (){
-      router.replace('/openShop/baseInfo')
+      router.replace('/openShop')
     }
   },
 }

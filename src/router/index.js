@@ -28,28 +28,6 @@ const routes = [
     path: '/openShop',
     name: 'openShop',
     component: openShop,
-    children: [
-      {
-        path: '',
-        name: 'baseInfo',
-        component: baseInfo,
-      }, {
-        path: 'baseInfo',
-        name: 'baseInfo',
-        component: baseInfo,
-      },{
-        path: 'setBH',
-        name: 'setBH',
-        component: setBH,
-      },{
-        path: 'location',
-        name: 'location',
-        component: location,
-      },{
-        path: 'submit',
-        name: 'submit',
-        component: submit,
-      },]
   },
 
 ]

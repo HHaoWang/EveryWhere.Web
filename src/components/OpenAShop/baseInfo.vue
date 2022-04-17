@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-right: 500px; margin-left: 500px; padding-top: 100px">
+  <div style="margin-right: 50px; margin-left: 50px; padding-top: 10px">
     <v-form
         ref="form"
         v-model="valid"
@@ -26,27 +26,6 @@
           required
       ></v-select>
 
-<!--      <v-checkbox-->
-<!--          v-model="checkbox"-->
-<!--          :rules="[v => !!v || 'You must agree to continue!']"-->
-<!--          label="Do you agree?"-->
-<!--          required-->
-<!--      ></v-checkbox>-->
-
-      <v-btn
-          color="error"
-          class="mr-4"
-          @click="reset"
-      >
-        重置表单
-      </v-btn>
-      <v-btn
-          color="error"
-          class="mr-4"
-          @click="next"
-      >
-        下一项
-      </v-btn>
 
     </v-form>
   </div>
@@ -54,7 +33,6 @@
 </template>
 
 <script>
-import router from "@/router";
 
 export default {
   name: "baseInfo",
@@ -67,12 +45,7 @@ export default {
     // checkbox: false,
   }),
   methods: {
-    reset () {
-      this.$refs.form.reset()
-    },
-    next () {
-      router.replace('/openShop/setBH')
-    }
+
   },
 }
 </script>
