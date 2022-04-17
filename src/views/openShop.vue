@@ -30,7 +30,7 @@
 <!--        第一步-->
         <v-stepper-content step="1">
           <v-card class="mb-12" height="50vh">
-            <base-info></base-info>
+            <base-info :shopName.sync="shopName" :tellNumber.sync="tellNumber" :shopConditions.sync="shopConditions"></base-info>
           </v-card>
 
           <v-btn color="primary" @click="e1 = 2">
@@ -42,7 +42,7 @@
 <!--        第二步-->
         <v-stepper-content step="2"><v-card class="mb-12" height="50vh"
           >
-            <set-b-h></set-b-h>
+            <set-b-h :openTime.sync="openTime" :closeTime.sync="closeTime"></set-b-h>
           </v-card>
 
           <v-btn text @click="e1 = 1">
@@ -99,7 +99,21 @@ export default {
   components: {Location, SetBH, BaseInfo},
   data: () => ({
     e1: 1,
+    //baseInfo
+    shopName: '',
+    tellNumber: '',
+    shopConditions: null,
+    //BH
+    openTime: null,
+    closeTime: null,
   }),
+  methods:{
+  },
+  watch:{
+    openTime(){
+      console.log(this.$data.openTime);
+    }
+  }
 }
 </script>
 <style scoped>

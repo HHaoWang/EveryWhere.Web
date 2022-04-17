@@ -8,16 +8,16 @@
       <v-col style="width: 350px; flex: 0 1 auto;">
         <h2>Start:</h2>
         <v-time-picker
-            v-model="start"
-            :max="end"
+            v-model="myOpenTime"
+            :max="myCloseTime"
             format="24hr"
         ></v-time-picker>
       </v-col>
       <v-col style="width: 350px; flex: 0 1 auto;">
         <h2>End:</h2>
         <v-time-picker
-            v-model="end"
-            :min="start"
+            v-model="myCloseTime"
+            :min="myOpenTime"
             format="24hr"
         ></v-time-picker>
       </v-col>
@@ -28,18 +28,29 @@
 
 <script>
 import router from "@/router";
+import {userRequest} from "@/network/request";
+import store from "@/store";
 
 export default {
   name: "setBH",
+  props:["openTime","closeTime"],
   data () {
     return {
-      start: null,
-      end: null,
+      myOpenTime:'',
+      myCloseTime:''
     }
   },
   methods: {
 
   },
+  watch:{
+    myOpenTime(){
+      this.$emit('update:openTime',this.$data.myOpenTime)
+    },
+    myCloseTime(){
+      this.$emit('update:closeTime',this.$data.myCloseTime)
+    }
+  }
 }
 </script>
 
