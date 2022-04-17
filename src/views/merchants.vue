@@ -24,21 +24,21 @@
                 mdi-email
               </v-icon>
             </v-list-item-icon>
-            <v-list-item-title>My Files</v-list-item-title>
+            <v-list-item-title>订单列表</v-list-item-title>
           </v-list-item>
 
-          <v-list-item link>
+          <v-list-item link @click="goDataStatistics">
             <v-list-item-icon>
               <v-icon>mdi-account-multiple</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Shared with me</v-list-item-title>
+            <v-list-item-title>修改信息数据统计</v-list-item-title>
           </v-list-item>
 
           <v-list-item link>
             <v-list-item-icon>
               <v-icon>mdi-star</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Starred</v-list-item-title>
+            <v-list-item-title>修改信息</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
@@ -46,7 +46,7 @@
 
       <v-main>
         <v-container class="py-8 px-6" fluid>
-
+          <router-view/>
         </v-container>
       </v-main>
     </div>
@@ -167,7 +167,11 @@ export default {
     },
     openShop:function (){
       router.replace('/openShop')
+    },
+    goDataStatistics:function (){
+      router.replace({ path: '/merchants/dataStatistics' })
     }
+
   },
 }
 </script>

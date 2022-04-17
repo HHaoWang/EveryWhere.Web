@@ -4,10 +4,9 @@ import merchants from '../views/merchants.vue';
 import Login from "@/views/Login";
 import admin from "@/views/admin";
 import openShop from "@/views/openShop";
-import baseInfo from "@/components/OpenAShop/baseInfo";
-import setBH from "@/components/OpenAShop/setBH";
-import submit from "@/components/OpenAShop/submit";
-import location from "@/components/OpenAShop/location";
+import orderList from "@/components/ShopDataDisplay/orderList";
+import modifyShopInfo from "@/components/ShopDataDisplay/modifyShopInfo";
+import dataStatistics from "@/components/ShopDataDisplay/dataStatistics";
 
 Vue.use(VueRouter)
 
@@ -19,7 +18,20 @@ const routes = [
   }, {
     path: '/merchants',
     name: 'merchants',
-    component: merchants
+    component: merchants,
+    children:[{
+      path: '',
+      name: 'orderList',
+      component: orderList
+    },{
+      path: 'modifyShopInfo',
+      name: 'modifyShopInfo',
+      component: modifyShopInfo
+    },{
+      path: 'dataStatistics',
+      name: 'dataStatistics',
+      component: dataStatistics
+    }]
   },{
     path: '/admin',
     name: 'admin',
