@@ -5,7 +5,7 @@
       23
     </div>
     <div v-else="$store.state.isShopkeeper === true && $store.state.hasShop === false" class="container">
-      <v-btn x-large color="success" dark v-on:click="openaShop">
+      <v-btn x-large color="success" dark v-on:click="openShop">
         开设店铺
       </v-btn>
       <div v-if="$store.state.isManager === true">
@@ -29,6 +29,7 @@ export default {
   created() {
     this.ValidShopkeeper()
     this.checkHasShop()
+    this.checkManager()
   },
   data: {},
   methods:{
@@ -77,8 +78,8 @@ export default {
         console.error(err);
       })
     },
-    openaShop:function (){
-      router.replace('/openAShop')
+    openShop:function (){
+      router.replace('/openShop/baseInfo')
     }
   },
 }
