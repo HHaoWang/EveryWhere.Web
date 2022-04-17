@@ -45,9 +45,7 @@ export default {
     myShopConditions: null,
   }),
   methods: {
-    updateData(){
 
-    }
   },
   watch:{
     myShopName(){

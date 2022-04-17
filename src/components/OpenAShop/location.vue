@@ -6,23 +6,29 @@
       v-model="myProvince"
       :items="this.$data.area"
       item-text="name"
-      label="Standard"
+      label="省"
       return-object
   ></v-select>
   <v-select
       v-model="myCity"
       :items="this.$data.myProvince.subAreas"
       item-text="name"
-      label="Standard"
+      label="市"
       return-object
+      no-data-text="请先选择省"
   ></v-select>
   <v-select
-      v-model="myRegion "
+      v-model="myRegion"
       :items="this.$data.myCity.subAreas"
       item-text="name"
-      label="Standard"
+      label="区"
       return-object
+      no-data-text="请先选择省(市)"
   ></v-select>
+  <v-text-field
+      label="详细地址"
+      v-model="myAdressDetail"
+  ></v-text-field>
 </div>
 
 </template>
@@ -37,12 +43,14 @@ export default {
   created() {
     this.getArea()
   },
+  props:["province", "city", "region", "regionCode","addressDetail"],
   data () {
     return {
-      area:'',
-      myProvince:'',
-      myCity:'',
-      myRegion:''
+      area:[],
+      myProvince:[],
+      myCity:[],
+      myRegion:[],
+      myAdressDetail:''
     }
   },
   methods: {
@@ -54,7 +62,6 @@ export default {
       }).then((response) => {
         if(response.statusCode === 200){
           that.$data.area = response.areasTree
-          console.log(that.$data.area);
         }else{
           console.log(response.message);
         }
@@ -64,8 +71,18 @@ export default {
     }
   },
   watch:{
+    myProvince(){
+      this.$emit('update:province',this.$data.myProvince.name)
+    },
     myCity(){
-      console.log(this.$data.mySubAreas);
+      this.$emit('update:city',this.$data.myCity.name)
+    },
+    myRegion(){
+      this.$emit('update:region',this.$data.myRegion.name)
+      this.$emit('update:regionCode',this.$data.myRegion.areaCode)
+    },
+    myAdressDetail(){
+      this.$emit('update:addressDetail',this.$data.myAdressDetail)
     }
   }
 }
