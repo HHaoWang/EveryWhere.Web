@@ -155,28 +155,14 @@ export default {
   }),
   methods:{
     submitToOpen(){
-      const openTimeHour = this.$data.openTime.substring(0,2)
-      const openTimeMin = this.$data.openTime.substring(3,5)
-      const closeTimeHour = this.$data.closeTime.substring(0,2)
-      const closeTimeMin = this.$data.closeTime.substring(3,5)
       const data ={}
       data.name = this.$data.shopName
       data.address = this.$data.addressDetail
       data.areaCode = this.$data.regionCode
       data.tel = this.$data.tellNumber
       data.isOpening = (this.shopConditions ==="未营业")?false:true
-      data.openTime = {}
-      data.openTime.hour = parseInt(openTimeHour)
-      data.openTime.minute = parseInt(openTimeMin)
-      data.openTime.second = 0
-      data.openTime.millisecond = 0
-      data.openTime.ticks = 0
-      data.closeTime = {}
-      data.closeTime.hour = parseInt(closeTimeHour)
-      data.closeTime.minute = parseInt(closeTimeMin)
-      data.closeTime.second = 0
-      data.closeTime.millisecond = 0
-      data.closeTime.ticks = 0
+      data.closeTime = this.$data.closeTime + ":00"
+      data.openTime = this.$data.openTime + ":00"
       data.location = "嗨嗨嗨"
       console.log(data);
       userRequest({
@@ -185,7 +171,7 @@ export default {
         data: data
       }).then((response) => {
         if(response.statusCode === 200){
-
+          router.replace('/merchants')
         }else{
           console.log(response.message);
           console.log("zhixinglem.log");

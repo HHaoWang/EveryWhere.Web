@@ -13,7 +13,7 @@
 
 <script>
 // @ is an alias to /src
-import ScanLogin from "@/components/ScanLogin";
+import ScanLogin from "@/components/Login/ScanLogin";
 
 export default {
   name: 'Login',
