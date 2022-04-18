@@ -1,8 +1,6 @@
 <template>
-
   <div class="container">
     <div v-if="$store.state.isShopkeeper === true && $store.state.hasShop === true">
-
       <v-navigation-drawer v-model="drawer" app permanent >
         <v-list>         <!--店铺信息-->
           <v-list-item link>
@@ -58,8 +56,6 @@
       </v-main>
     </div>
 
-
-
     <div v-else="$store.state.isShopkeeper === true && $store.state.hasShop === false" class="container">
       <v-btn x-large color="success" dark v-on:click="openShop">
         开设店铺
@@ -75,7 +71,7 @@
 <script>
 
 import {userRequest} from "@/network/request";
-import store from '../../src/store/index'
+import store from '../../store'
 import router from "@/router";
 
 export default {

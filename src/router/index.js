@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import merchants from '../views/merchants.vue';
 import Login from "@/views/Login";
 import admin from "@/views/admin";
-import openShop from "@/views/openShop";
-import orderList from "@/components/ShopDataDisplay/orderList";
-import modifyShopInfo from "@/components/ShopDataDisplay/modifyShopInfo";
-import dataStatistics from "@/components/ShopDataDisplay/dataStatistics";
+import openShop from "@/views/merchants/openShop";
+import orderList from "@/views/merchants/orderList";
+import modifyShopInfo from "@/views/merchants/modifyShopInfo";
+import dataStatistics from "@/views/merchants/dataStatistics";
 import management from "@/views/management";
+import Dashboard from "@/views/Dashboard";
 
 Vue.use(VueRouter)
 
@@ -16,14 +16,15 @@ const routes = [
     path: '/',
     name: 'Login',
     component: Login
-  }, {
+  },
+  {
     path: '/merchants',
     name: 'merchants',
-    component: merchants,
+    component: Dashboard,
     children:[{
-      path: '',
-      name: 'orderList',
-      component: orderList
+      path: 'openShop',
+      name: 'openShop',
+      component: openShop,
     },{
       path: 'orderList',
       name: 'orderList',
@@ -37,14 +38,11 @@ const routes = [
       name: 'dataStatistics',
       component: dataStatistics
     }]
-  },{
+  },
+  {
     path: '/admin',
     name: 'admin',
     component: admin
-  },{
-    path: '/openShop',
-    name: 'openShop',
-    component: openShop,
   },{
     path: '/management',
     name: 'management',
