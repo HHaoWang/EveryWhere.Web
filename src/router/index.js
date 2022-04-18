@@ -7,6 +7,7 @@ import openShop from "@/views/openShop";
 import orderList from "@/components/ShopDataDisplay/orderList";
 import modifyShopInfo from "@/components/ShopDataDisplay/modifyShopInfo";
 import dataStatistics from "@/components/ShopDataDisplay/dataStatistics";
+import management from "@/views/management";
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,10 @@ const routes = [
     component: merchants,
     children:[{
       path: '',
+      name: 'orderList',
+      component: orderList
+    },{
+      path: 'orderList',
       name: 'orderList',
       component: orderList
     },{
@@ -40,6 +45,10 @@ const routes = [
     path: '/openShop',
     name: 'openShop',
     component: openShop,
+  },{
+    path: '/management',
+    name: 'management',
+    component: management,
   },
 
 ]

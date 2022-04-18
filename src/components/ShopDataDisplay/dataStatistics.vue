@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    来到统计
+  </div>
 </template>
 
 <script>

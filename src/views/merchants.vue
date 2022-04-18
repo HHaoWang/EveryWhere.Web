@@ -18,7 +18,7 @@
         <v-divider></v-divider>
 
         <v-list nav dense>  <!--account-->
-          <v-list-item link>
+          <v-list-item link @click="goOrderList">
             <v-list-item-icon>
               <v-icon large color="teal darken-2">
                 mdi-email
@@ -34,11 +34,18 @@
             <v-list-item-title>修改信息数据统计</v-list-item-title>
           </v-list-item>
 
-          <v-list-item link>
+          <v-list-item link @click="goModifyShopInfo">
             <v-list-item-icon>
-              <v-icon>mdi-star</v-icon>
+              <v-icon>mdi-font-star</v-icon>
             </v-list-item-icon>
             <v-list-item-title>修改信息</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item link @click="goManagement" v-if="$store.state.isManager === true">
+            <v-list-item-icon>
+              <v-icon>mdi-font-star</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>进入后台</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
@@ -170,8 +177,16 @@ export default {
     },
     goDataStatistics:function (){
       router.replace({ path: '/merchants/dataStatistics' })
-    }
-
+    },
+    goModifyShopInfo:function (){
+      router.replace({ path: '/merchants/modifyShopInfo' })
+    },
+    goOrderList:function (){
+      router.replace({ path: '/merchants/orderList' })
+    },
+    goManagement:function (){
+      router.replace({ path: '/management' })
+    },
   },
 }
 </script>
