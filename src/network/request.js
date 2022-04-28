@@ -5,7 +5,9 @@ import router from "@/router";
 export let baseUrl = window.location.hostname //'118.190.97.125:8080'
 export let wsPort = 8080
 export let basePort = window.location.port
-let baseURL = '/api'
+let baseURL = 'https://'+baseUrl
+if (process.env.NODE_ENV === 'development')
+ baseURL = ""
 
 export function request(config) {
     axios.defaults.withCredentials = true;

@@ -6,8 +6,10 @@ import openShop from "@/views/merchants/openShop";
 import orderList from "@/views/merchants/orderList";
 import modifyShopInfo from "@/views/merchants/modifyShopInfo";
 import dataStatistics from "@/views/merchants/dataStatistics";
-import management from "@/views/management";
+import management from "@/views/management/shopList";
 import Dashboard from "@/views/Dashboard";
+import shopList from "@/views/management/shopList";
+import printerList from "@/views/merchants/printerList";
 
 Vue.use(VueRouter)
 
@@ -37,16 +39,23 @@ const routes = [
       path: 'dataStatistics',
       name: 'dataStatistics',
       component: dataStatistics
+    },{
+      path: 'printerList',
+      name: 'printerList',
+      component: printerList
     }]
   },
   {
-    path: '/admin',
-    name: 'admin',
-    component: admin
-  },{
     path: '/management',
     name: 'management',
-    component: management,
+    component: Dashboard,
+    children: [
+      {
+        path: "shopList",
+        name: "shopList",
+        component: shopList
+      }
+    ]
   },
 
 ]

@@ -104,12 +104,10 @@ export default {
         console.log(data);
         return QRCodeGenerator.toDataURL(JSON.stringify(data), opts);
       }).then(url => {
-        console.log(url);
         this.QRCodeBase64 = url
+      }).catch(err => {
+        console.error(err);
       })
-          .catch(err => {
-            console.error(err);
-          })
     },
     //检查二维码是否被使用成功登录
     checkLoginSuccess: function () {
@@ -148,7 +146,7 @@ export default {
 }
 
 .right-box {
-
+  text-align: center;
 }
 
 .tip {

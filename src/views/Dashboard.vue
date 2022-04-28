@@ -6,7 +6,7 @@
         <v-list-item
             v-for="item in links"
             :key="item.title"
-            link :to="item.path"
+            link :to="item.path" :target="item.target"
         >
           <v-list-item-icon>
             <v-icon>{{item.icon}}</v-icon>
@@ -48,6 +48,10 @@ import { mdiExitToApp } from '@mdi/js';
 import { mdiViewDashboardEdit } from '@mdi/js';
 import { mdiStoreCogOutline } from '@mdi/js';
 import { mdiContentPaste } from '@mdi/js';
+import { mdiPrinter } from '@mdi/js';
+import { mdiChartDonut } from '@mdi/js';
+import { mdiStoreSettingsOutline } from '@mdi/js';
+import { mdiApplicationBracketsOutline } from '@mdi/js';
 
 export default {
   name: "Dashboard",
@@ -59,6 +63,22 @@ export default {
   computed:{
     links(){
       let links = [];
+      if (this.$route.fullPath.startsWith("/management")){
+        links.push({
+          title:"商家管理",
+          icon:mdiStoreSettingsOutline,
+          path:"/management/shopList",
+        },{
+          title:"数据统计",
+          icon:mdiChartDonut,
+        },{
+          title:"返回店铺",
+          icon:mdiStoreCogOutline,
+          path:"/merchants/modifyShopInfo"
+        });
+        return links;
+      }
+
       if (this.$store.state.hasShop){
         links.push({
           title:"店铺管理",
@@ -68,20 +88,32 @@ export default {
           title:"历史订单",
           icon:mdiContentPaste,
           path:"/merchants/orderList"
-        })
+        },{
+          title:"打印机管理",
+          icon:mdiPrinter,
+          path:"/merchants/printerList"
+        },{
+          title:"数据统计",
+          icon:mdiChartDonut,
+        },{
+          title:"打印端下载",
+          icon:mdiApplicationBracketsOutline,
+          path:"/app/desktop/",
+          target:"_blank"
+        });
       }else {
         links.push({
           title:"开设店铺",
           icon:mdiStoreEditOutline,
           path:"/merchants/openShop"
-        })
+        });
       }
       if (this.$store.state.isManager){
         links.push({
           title:"平台管理",
           icon:mdiViewDashboardEdit,
           path:"/management"
-        })
+        });
       }
       return links;
     }

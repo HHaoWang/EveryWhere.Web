@@ -25,7 +25,7 @@
               class="ma-2"
               color="green"
               text-color="white"
-              v-if="item.state === 3"
+              v-if="item.state === 2"
           >已完成</v-chip>
         </span>
       </template>

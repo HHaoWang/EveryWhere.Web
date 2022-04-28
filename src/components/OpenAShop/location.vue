@@ -57,7 +57,7 @@ export default {
         url: '/api/Area/Tree',
       }).then((response) => {
         if (response.statusCode === 200) {
-          that.$data.area = response.areasTree
+          that.area = response.areasTree
         } else {
           console.log(response.message);
         }
