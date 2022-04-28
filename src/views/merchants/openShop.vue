@@ -34,7 +34,7 @@
 
         <!--第二步-->
         <v-stepper-content step="2">
-          <set-b-h :closeTime.sync="closeTime" :openTime.sync="openTime"></set-b-h>
+          <set-business-hours :closeTime.sync="closeTime" :openTime.sync="openTime"></set-business-hours>
           <div style="text-align: center">
             <v-btn text @click="e1 = 1">上一步</v-btn>
             <v-btn color="primary" @click="e1 = 3" class="open-shop-continue-btn">继续</v-btn>
@@ -96,14 +96,14 @@
 
 import router from "@/router";
 import BaseInfo from "@/components/OpenAShop/baseInfo";
-import SetBH from "@/components/OpenAShop/setBH";
+import setBusinessHours from "@/components/OpenAShop/setBusinessHours";
 import submit from "@/components/OpenAShop/submit";
 import Location from "@/components/OpenAShop/location";
 import {userRequest} from "@/network/request";
 
 export default {
   name: "openShop",
-  components: {Location, SetBH, BaseInfo, submit},
+  components: {Location, setBusinessHours, BaseInfo, submit},
   data: () => ({
     e1: 1,
     //baseInfo
@@ -160,7 +160,7 @@ export default {
   padding-top: 5vh;
 }
 .open-shop-stepper-content{
-  height: 70vh;
+  height: 50vh;
 }
 .open-shop-continue-btn{
   margin-left: 10px

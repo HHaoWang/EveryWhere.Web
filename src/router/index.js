@@ -10,6 +10,7 @@ import management from "@/views/management/shopList";
 import Dashboard from "@/views/Dashboard";
 import shopList from "@/views/management/shopList";
 import printerList from "@/views/merchants/printerList";
+import systemDataStatistics from "@/views/management/systemDataStatistics";
 
 Vue.use(VueRouter)
 
@@ -54,7 +55,11 @@ const routes = [
         path: "shopList",
         name: "shopList",
         component: shopList
-      }
+      },{
+        path: 'systemDataStatistics',
+        name: 'systemDataStatistics',
+        component: systemDataStatistics
+      },
     ]
   },
 

@@ -71,6 +71,7 @@ export default {
         },{
           title:"数据统计",
           icon:mdiChartDonut,
+          path:'/management/systemDataStatistics'
         },{
           title:"返回店铺",
           icon:mdiStoreCogOutline,
@@ -95,6 +96,7 @@ export default {
         },{
           title:"数据统计",
           icon:mdiChartDonut,
+          path:"/merchants/dataStatistics"
         },{
           title:"打印端下载",
           icon:mdiApplicationBracketsOutline,
