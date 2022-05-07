@@ -6,7 +6,7 @@
         <v-select :items="selections" label="选择日期查看统计数据" solo v-model="dateSelected"></v-select>
       </v-col>
       <v-col class="d-flex" cols="3" sm="2" v-if="dateSelected === '选择日期'">
-        <v-menu offset-y transition="scale-transition">
+        <v-menu offset-y transition="scale-transition" :close-on-content-click="false">
           <template v-slot:activator="{ on, attrs}">
             <v-text-field v-bind="attrs" v-on="on" v-model="dateSelectedSingle" readonly></v-text-field>
           </template>

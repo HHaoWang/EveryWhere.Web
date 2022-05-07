@@ -44,11 +44,11 @@
         <!--第三步-->
         <v-stepper-content step="3">
           <location :addressDetail.sync='addressDetail' :city.sync="city" :province.sync="province" :region.sync="region"
-                    :regionCode.sync="regionCode"></location>
+                    :regionCode.sync="regionCode" ref="addressForm"></location>
 
           <div style="text-align: center">
             <v-btn text @click="e1 = 2">上一步</v-btn>
-            <v-btn color="primary" @click="e1 = 4" class="open-shop-continue-btn">继续</v-btn>
+            <v-btn color="primary" @click="confirmRegion" class="open-shop-continue-btn">继续</v-btn>
           </div>
         </v-stepper-content>
 
@@ -93,7 +93,6 @@
 </template>
 
 <script>
-
 import router from "@/router";
 import BaseInfo from "@/components/OpenAShop/baseInfo";
 import setBusinessHours from "@/components/OpenAShop/setBusinessHours";
@@ -104,6 +103,7 @@ import {userRequest} from "@/network/request";
 export default {
   name: "openShop",
   components: {Location, setBusinessHours, BaseInfo, submit},
+  inject:['reload'],
   data: () => ({
     e1: 1,
     //baseInfo
@@ -118,10 +118,21 @@ export default {
     city: '',
     region: '',
     regionCode: '',
-    addressDetail: ''
+    addressDetail: '',
+    initialBusinessHours:{
+      openTime:"09:00:00",
+      closeTime:"18:00:00"
+    }
   }),
   methods: {
+    confirmRegion(){
+      let valid = this.$refs.addressForm.validate();
+      if (valid){
+        this.e1 = 4;
+      }
+    },
     submitToOpen() {
+
       let data = {
         name : this.shopName,
         address : this.addressDetail,
@@ -132,17 +143,16 @@ export default {
         location : "0,0"
       }
 
-      console.log(data);
       userRequest({
         method: 'post',
         url: '/api/Shop',
         data: data
       }).then((response) => {
         if (response.statusCode === 200) {
-          router.replace('/merchants')
+          this.$emit("update-shop");
+          router.replace('/merchants');
         } else {
-          console.log(response.message);
-          console.log("zhixinglem.log");
+          this.reload();
         }
       }).catch(err => {
         console.error(err);

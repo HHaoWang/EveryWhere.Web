@@ -32,6 +32,9 @@
           >营业中</v-chip>
         </span>
       </template>
+      <template v-slot:item.openTime="{ item }">
+        <span>{{item.openTime}}~{{item.closeTime}}</span>
+      </template>
     </v-data-table>
   </div>
 </template>

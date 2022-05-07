@@ -6,12 +6,12 @@
         <v-select :items="selections" label="选择日期查看统计数据" solo v-model="dateSelected"></v-select>
       </v-col>
       <v-col class="d-flex" cols="3" sm="2" v-if="dateSelected === '选择日期'">
-        <v-menu offset-y transition="scale-transition">
+        <v-menu offset-y transition="scale-transition" :close-on-content-click="false">
           <template v-slot:activator="{ on, attrs}">
             <v-text-field v-bind="attrs" v-on="on" v-model="dateSelectedSingle" readonly></v-text-field>
           </template>
           <v-date-picker @input="inputDate" v-model="dateSelectedSingle"
-                         :first-day-of-week="1" locale="zh-cn" no-title>
+                         :first-day-of-week="1" locale="zh-cn">
           </v-date-picker>
         </v-menu>
       </v-col>
@@ -21,8 +21,8 @@
           <template v-slot:activator="{ on, attrs}">
             <v-text-field v-bind="attrs" v-on="on" v-model="dateSelectedRange.join('~')" readonly></v-text-field>
           </template>
-          <v-date-picker v-model="dateSelectedRange" :first-day-of-week="1" range
-                         locale="zh-cn" no-title
+          <v-date-picker v-model="dateSelectedRange" :first-day-of-week="1"
+                         range locale="zh-cn"
           ></v-date-picker>
         </v-menu>
       </v-col>

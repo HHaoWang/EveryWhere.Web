@@ -35,7 +35,7 @@
       <v-container fluid>
 
         <!-- 如果使用 vue-router -->
-        <router-view></router-view>
+        <router-view @update-shop="checkHasShop" @update-manager="checkManager"></router-view>
       </v-container>
     </v-main>
   </v-app>
@@ -75,7 +75,7 @@ export default {
         },{
           title:"返回店铺",
           icon:mdiStoreCogOutline,
-          path:"/merchants/modifyShopInfo"
+          path:"/merchants/"
         });
         return links;
       }
@@ -121,7 +121,6 @@ export default {
     }
   },
   created() {
-    console.log("created");
     this.checkManager();
     this.checkHasShop();
   },
@@ -137,7 +136,6 @@ export default {
           this.$store.commit("setIsManager",false);
         }
       }).catch(err => {
-        console.log(111111111111)
         this.$store.commit("setIsManager",false);
       })
     },
@@ -146,7 +144,6 @@ export default {
         method: 'get',
         url: '/api/Shop/Shopkeeper',
       }).then((response) => {
-        console.log(response)
         if(response.statusCode === 200 && response.data.shop !== null){
           this.$store.commit("setHasShop",true);
           this.$store.commit("setShopInfo",response.data.shop);
@@ -161,8 +158,19 @@ export default {
     onLogout(){
       this.$store.commit("resetState");
       this.$router.replace("/");
+    },
+    reload(){
+      this.isRouterAlive = false
+      this.$nextTick(function () {
+        this.isRouterAlive = true
+      })
+    },
+  },
+  provide(){
+    return {
+      reload: this.reload
     }
-  }
+  },
 }
 </script>
 
