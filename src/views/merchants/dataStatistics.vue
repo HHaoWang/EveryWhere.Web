@@ -27,11 +27,13 @@
         </v-menu>
       </v-col>
     </v-row>
-    <v-chart class="chart" :option="option" />
+    <v-chart class="chart" :option="option" :loading="loading"/>
   </div>
 </template>
 
 <script>
+import {userRequest} from "@/network/request";
+
 const LocalDate = require('@js-joda/core').LocalDate;
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
@@ -72,6 +74,7 @@ export default {
       dateSelectedSingle:'',
       dateSelectedRange:[],
       showDatePickerSingle:false,
+      loading:false,
       data:{
         days:[],
         views:[],
@@ -125,15 +128,15 @@ export default {
           this.inputDate(yesterday);
           break;
         case "近7天":
-          let sevenDaysAgo = today.minusDays(7).toString();
+          let sevenDaysAgo = today.minusDays(6).toString();
           this.dateSelectedRange = [sevenDaysAgo,today.toString()];
           break;
         case "近14天":
-          let doubleSevenDaysAgo = today.minusDays(14).toString();
+          let doubleSevenDaysAgo = today.minusDays(13).toString();
           this.dateSelectedRange = [doubleSevenDaysAgo,today.toString()];
           break;
         case "近一个月":
-          let aMonthAgo = today.minusMonths(1).toString();
+          let aMonthAgo = today.minusMonths(1).plusDays(1).toString();
           this.dateSelectedRange = [aMonthAgo,today.toString()];
           break;
       }
@@ -150,6 +153,33 @@ export default {
       this.dateSelectedRange = [newDate,newDate];
     },
     getData(from,to){
+      this.loading = true;
+      userRequest({
+        url:"/api/Statistics/Shop/From/"+from+"/To/"+to,
+        method:"GET"
+      }).then(res=>{
+        console.log(res);
+        let data = res.data;
+        this.data = JSON.parse(JSON.stringify(res.data));
+        this.option.series = [];
+        this.option.xAxis.data = [];
+        this.option.legend.data = [];
+
+        this.option.xAxis.data.push(...data["days"]);
+        for (let item of data.data) {
+          this.option.legend.data.push(item.name);
+          this.option.series.push({
+            name: item.name,
+            type: 'line',
+            data: item.data
+          })
+        }
+        this.loading = false;
+      }).catch(err=>{
+        console.log(err);
+      })
+    },
+    mock(from,to){
       let data = {
         days:[],
         data:[{
@@ -204,7 +234,6 @@ export default {
           data: item.data
         })
       }
-
     },
     getTable(){
       return {

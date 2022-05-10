@@ -152,7 +152,7 @@ export default {
         url:"/api/Order/Shop/"+this.$store.state.shopInfo.id,
         method:"GET"
       }).then(res=>{
-        console.log(res)
+        res.data.orders.sort((a,b)=>b.id-a.id);
         this.orders = res.data.orders;
       })
     }
